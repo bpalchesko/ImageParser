@@ -9,7 +9,7 @@ public class Parser {
 	int blue;
 	int green;
 	int red;
-	ColorEffect colorEffect;
+	public ColorEffect colorEffect;
 	public static final Color[] rainbow = {Color.RED, new Color(230,100,10), Color.YELLOW, 
 		Color.GREEN, Color.BLUE, Color.CYAN, Color.MAGENTA};
 	
@@ -17,11 +17,15 @@ public class Parser {
 	
 	public Parser() {
 		source = new SourceImage();
-		colorEffect = ColorEffect.BLACKWHITE;
+		colorEffect = ColorEffect.ORIGINAL;
 		makeCurrentColorMap();
 	}
 	
-	private void makeCurrentColorMap() {
+	public void setColorEffect(ColorEffect colorEffect) {
+		this.colorEffect = colorEffect; 
+	}
+	
+	public void makeCurrentColorMap() {
 		currentColorMap = new Color[source.original.getHeight()][source.original.getWidth()];
 		for (int height = 0; height < source.original.getHeight(); height++) {
 			for (int width = 0; width < source.original.getWidth(); width++) {
@@ -49,7 +53,7 @@ public class Parser {
 	}
 	
 	public Color rainbowTransform(int y, int x) {
-		if (blue > 150 || green > 150 || red > 150) {
+		if (blue > 190 || green > 190 || red > 190) {
 			return Color.WHITE;
 		} else return rainbow[7 * x / (source.original.getWidth())];
 	}

@@ -16,7 +16,7 @@ public class SourceImage {
 	int[][] currentMap;
 	
 	SourceImage() {
-		original = SourceImage.loadImage("bw_leopard.jpg");
+		original = SourceImage.loadImage("lincoln.jpg");
 		originalMap = mapImageColor();
 		currentMap = mapImageColor();
 	}
