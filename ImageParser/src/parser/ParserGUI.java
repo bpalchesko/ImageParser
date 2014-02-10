@@ -13,14 +13,19 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import parser.Parser.ColorEffect;
+import parser.Parser.Pattern;
 
 public class ParserGUI extends JFrame{
 	
 	View view;
-	JPanel menuBar;
+	JPanel topMenuBar;
+	JPanel bottomMenuBar;
 	JButton originalColor;
 	JButton rainbowColor;
 	JButton blackWhiteColor;
+	JButton originalPattern;
+	JButton dotPattern;
+	JButton linePattern;
 	
 	public static void main(String[] args) {
 		try {
@@ -34,22 +39,36 @@ public class ParserGUI extends JFrame{
 	
 	void runParser() {
 		view = new View();
-		setSize(view.getWidth(), view.getHeight()+25);
+		setSize(view.getWidth(), view.getHeight()+50);
+		setTitle("Image Parser");
 		add(view, BorderLayout.CENTER);
-		createMenuBar();
+		createTopMenuBar();
+		createBottomMenuBar();
 		setVisible(true);
 	}
 	
-	void createMenuBar() {
-		menuBar = new JPanel();
-		menuBar.setLayout(new BorderLayout());
-		menuBar.setBackground(Color.WHITE);
-		menuBar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		menuBar.setPreferredSize(new Dimension(view.getWidth(), 25));
-		add(menuBar, BorderLayout.NORTH);
+	void createTopMenuBar() {
+		topMenuBar = new JPanel();
+		topMenuBar.setLayout(new BorderLayout());
+		topMenuBar.setBackground(Color.WHITE);
+		topMenuBar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		topMenuBar.setPreferredSize(new Dimension(view.getWidth(), 25));
+		add(topMenuBar, BorderLayout.NORTH);
 		addOriginalColorButton();
 		addRainbowColorButton();
 		addBlackWhiteColorButton();		
+	}
+	
+	void createBottomMenuBar() {
+		bottomMenuBar = new JPanel();
+		bottomMenuBar.setLayout(new BorderLayout());
+		bottomMenuBar.setBackground(Color.WHITE);
+		bottomMenuBar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		bottomMenuBar.setPreferredSize(new Dimension(view.getWidth(), 25));
+		add(bottomMenuBar, BorderLayout.SOUTH);
+		addOriginalPatternButton();
+		addDotPatternButton();
+		addLinePatternButton();
 	}
 	
 	void addOriginalColorButton() {
@@ -69,7 +88,7 @@ public class ParserGUI extends JFrame{
 			public void mousePressed(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
-		menuBar.add(originalColor, BorderLayout.WEST);
+		topMenuBar.add(originalColor, BorderLayout.WEST);
 	}
 	
 	void addRainbowColorButton() {
@@ -89,7 +108,7 @@ public class ParserGUI extends JFrame{
 			public void mousePressed(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
-		menuBar.add(rainbowColor, BorderLayout.CENTER);
+		topMenuBar.add(rainbowColor, BorderLayout.CENTER);
 	}
 	
 	void addBlackWhiteColorButton() {
@@ -109,7 +128,64 @@ public class ParserGUI extends JFrame{
 			public void mousePressed(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
-		menuBar.add(blackWhiteColor, BorderLayout.EAST);
+		topMenuBar.add(blackWhiteColor, BorderLayout.EAST);
+	}
+	
+	void addOriginalPatternButton() {
+		originalPattern = new JButton("Original");
+		originalPattern.setPreferredSize(new Dimension(view.getWidth()/3, 25));
+		originalPattern.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				view.parser.setPattern(Pattern.ORIGINAL);
+				repaint();
+			}
+
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+		});
+		bottomMenuBar.add(originalPattern, BorderLayout.WEST);
+	}
+	
+	void addDotPatternButton() {
+		dotPattern = new JButton("Dots");
+		dotPattern.setPreferredSize(new Dimension(view.getWidth()/3, 25));
+		dotPattern.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				view.parser.setPattern(Pattern.DOTS);
+				repaint();
+			}
+
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+		});
+		bottomMenuBar.add(dotPattern, BorderLayout.CENTER);
+	}
+	
+	void addLinePatternButton() {
+		linePattern = new JButton("Lines");
+		linePattern.setPreferredSize(new Dimension(view.getWidth()/3, 25));
+		linePattern.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				view.parser.setPattern(Pattern.LINES);
+				repaint();
+			}
+
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+		});
+		bottomMenuBar.add(linePattern, BorderLayout.EAST);
 	}
 
 }

@@ -9,20 +9,27 @@ public class Parser {
 	int blue;
 	int green;
 	int red;
+	public Pattern pattern;
 	public ColorEffect colorEffect;
 	public static final Color[] rainbow = {Color.RED, new Color(230,100,10), Color.YELLOW, 
 		Color.GREEN, Color.BLUE, Color.CYAN, Color.MAGENTA};
 	
 	public enum ColorEffect {ORIGINAL, RAINBOW, BLACKWHITE};
+	public enum Pattern {ORIGINAL, DOTS, LINES};
 	
 	public Parser() {
 		source = new SourceImage();
 		colorEffect = ColorEffect.ORIGINAL;
+		pattern = Pattern.ORIGINAL;
 		makeCurrentColorMap();
 	}
 	
 	public void setColorEffect(ColorEffect colorEffect) {
 		this.colorEffect = colorEffect; 
+	}
+	
+	public void setPattern(Pattern pattern) {
+		this.pattern = pattern; 
 	}
 	
 	public void makeCurrentColorMap() {
@@ -62,7 +69,5 @@ public class Parser {
 		if (blue > 175 || green > 175 || red > 175) {
 			return Color.WHITE;
 		} else return Color.BLACK;
-	}
-	
-	
+	}	
 }

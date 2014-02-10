@@ -16,6 +16,25 @@ public class View extends JPanel {
 		source = parser.source;
 		setSize(source.original.getWidth(), source.original.getHeight());
 	}
+	
+	private void drawSolid(Graphics g, int height, int width) {
+		g.setColor(parser.currentColorMap[height][width]);
+		g.drawLine(width, height, width, height);
+	}
+	
+	private void drawDots(Graphics g, int height, int width) {
+		if (height % 7 == 0 && width % 7 == 0) {
+			g.setColor(parser.currentColorMap[height][width]);
+			g.fillOval(width, height, 7, 7);
+		}
+	}
+	
+	private void drawLines(Graphics g, int height, int width) {
+		if (width % 4 == 0) {
+			g.setColor(parser.currentColorMap[height][width]);
+			g.drawLine(width, height, width+1, height);
+		}
+	}
 
 	@Override
 	public void paint(Graphics g) {
@@ -24,9 +43,19 @@ public class View extends JPanel {
 		g.fillRect(0, 0, source.original.getWidth(), source.original.getHeight());
 		for(int height = 0; height < source.original.getHeight(); height++) {
 			for(int width = 0; width < source.original.getWidth(); width++) {
-				g.setColor(parser.currentColorMap[height][width]);
-				g.drawLine(width, height, width, height);
+				switch(parser.pattern) {
+				case ORIGINAL:
+					drawSolid(g, height, width);
+					break;
+				case DOTS:
+					drawDots(g, height, width);
+					break;
+				case LINES:
+					drawLines(g, height, width);
+					break;
+				}
 			}
 		}
 	}
+	
 }
